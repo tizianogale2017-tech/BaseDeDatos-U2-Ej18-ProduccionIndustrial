@@ -25,3 +25,27 @@ Modelar el control de producción de una planta metalúrgica: artículos finales
 ## Resultado
 
 ![Diagrama](captura.png)
+
+---
+
+## Normalización
+
+Se normaliza el documento `Orden_Fabricacion` con sus registros de `Inspeccion`. En todas las tablas la PK va en la primera columna y las FK al final. Los datos son de ejemplo.
+
+**Forma 0.** Una sola tabla con todo junto. Hay celdas con listas: cada orden fabricacion puede tener varios registros de inspeccion.
+
+![Forma 0](normalizacion/00-forma-0.png)
+
+**1FN.** Cada elemento de la lista pasa a su propia fila y la clave queda compuesta: (`id_orden`, `id_inspeccion`).
+
+![1FN](normalizacion/01-1fn.png)
+
+**2FN.** Los datos de orden fabricacion dependen solo de `id_orden`, así que van a `Orden_Fabricacion`. `Inspeccion` queda aparte con su propio id y la FK a `Orden_Fabricacion`.
+
+![2FN](normalizacion/02-2fn.png)
+
+**3FN.** Los datos de `Articulo`, `Linea_Montaje` y `Empleado` dependen de su propio identificador y no de la PK de orden fabricacion, así que pasan a tablas aparte. En el modelo final cada tabla usa su id propio.
+
+![3FN](normalizacion/03-3fn.png)
+
+Para que se vea la lista en la Forma 0, se agregó un registro de ejemplo en `Inspeccion` para el orden fabricacion 1.
